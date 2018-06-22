@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Mi perfil"
+        android:id="@+id/miPerfil"
+        android:icon="@drawable/ic_local_parking_black_24dp"
+        />
+    <item
+        android:title="Configuracion"
+        android:id="@+id/miConfiguracion"
+        android:icon="@drawable/ic_build_black_24dp"
+        />
+    <item
+        android:id="@+id/buscador"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="action_search"
+        app:showAsAction="always"/>
+
+
+</menu>
