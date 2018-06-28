@@ -1,4 +1,4 @@
-package com.example.dh.entregableandroidguidosalcedo2.view;
+package com.example.dh.entregableandroidguidosalcedo2.view.activity;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -11,8 +11,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-
 import com.example.dh.entregableandroidguidosalcedo2.R;
+import com.example.dh.entregableandroidguidosalcedo2.controller.ControllerPintura;
+import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
+import com.example.dh.entregableandroidguidosalcedo2.utils.ResultListener;
+import com.example.dh.entregableandroidguidosalcedo2.view.fragment.HomeFragment;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         HomeFragment homeFragment = new HomeFragment();
         cargarFragment(homeFragment);
-
-
-
+        cargarPinturas();
 
 
     }
@@ -64,10 +67,23 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void cargarFragment(Fragment fragmentACargar){
+    private void cargarFragment(Fragment fragmentACargar) {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutContenedor,fragmentACargar);
+        fragmentTransaction.replace(R.id.frameLayoutContenedor, fragmentACargar);
         fragmentTransaction.addToBackStack(null).commit();
+    }
+
+    public void cargarPinturas() {
+
+        ControllerPintura controllerPintura = new ControllerPintura();
+        controllerPintura.obtenerPintura(new ResultListener<List<Pintura>>() {
+            @Override
+            public void finish(List<Pintura> pinturas) {
+                Toast.makeText(MainActivity.this, pinturas.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
     }
 }

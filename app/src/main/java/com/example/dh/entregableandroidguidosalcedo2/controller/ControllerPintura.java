@@ -18,14 +18,14 @@ public class ControllerPintura {
                 }
             };
 
-            List<Pintura> productos = null;
+            List<Pintura> pinturas = null;
             if(hayInternet()){
                 DAORetrofit daoRetrofit = new DAORetrofit();
                 daoRetrofit.obtenerPinturasDeInternet(escuchadorDelControlador);
             }else{
                 DAOArchivos daoArchivos = new DAOArchivos();
-                productos = daoArchivos.obtenerProductosDeArchivo();
-                escuchadorDeLaVista.finish(productos);
+                pinturas = daoArchivos.obtenerProductosDeArchivo();
+                escuchadorDeLaVista.finish(pinturas);
             }
 
         }

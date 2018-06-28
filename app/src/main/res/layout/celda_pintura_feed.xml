@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="7dp"
+    app:cardCornerRadius="7dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textViewTituloPintura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="TITULO DE PINTURA"
+            android:textSize="16dp"
+            android:textAlignment="center"
+            android:alpha="1"
+            android:layout_alignBottom="@+id/imgNoticia" />
+
+        <ImageView
+            android:id="@+id/imgNoticia"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/captura" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -12,8 +12,9 @@ public class PinturaContainer {
         this.listaDePintura = listaDePinturas;
     }
 
-    public List<Pintura> getListaDePintura() {
+    public List<Pintura> getListaDePinturas() {
         return listaDePintura;
     }
+
 
 }

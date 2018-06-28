@@ -14,10 +14,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by DH on 11/6/2018.
- */
-
 public class DAORetrofit {
 
 
@@ -25,10 +21,9 @@ public class DAORetrofit {
     private Retrofit retrofit;
     private Service service;
 
-    public DAORetrofit(){
+    public DAORetrofit() {
 
-        // TODO - Cambiar esto segun API
-        baseURL = "https://newsapi.org/v2/";
+        baseURL = "https://api.myjson.com/bins/x858r/";
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -37,37 +32,21 @@ public class DAORetrofit {
         service = retrofit.create(Service.class);
     }
 
-    public void obtenerPinturasDeInternet(final ResultListener<List<Pintura>> escuchadorDelControlador){
+    public void obtenerPinturasDeInternet(final ResultListener<List<Pintura>> escuchadorDelControlador) {
 
-        Call<PinturaContainer> retrofitListener = service.getArticulosPorTema("6cc9dd144ae6445886c4667f1d8332cf", "q","es");
+        Call<PinturaContainer> retrofitListener = service.getPinturas();
         retrofitListener.enqueue(new Callback<PinturaContainer>() {
             @Override
             public void onResponse(Call<PinturaContainer> call, Response<PinturaContainer> response) {
 
                 PinturaContainer pinturaContainer = response.body();
-                escuchadorDelControlador.finish(pinturaContainer.getListaDePintura());
+                escuchadorDelControlador.finish(pinturaContainer.getListaDePinturas());
             }
 
             @Override
             public void onFailure(Call<PinturaContainer> call, Throwable t) {
 
                 escuchadorDelControlador.finish(new ArrayList<Pintura>());
-            }
-        });
-    }
-
-    // TODO - Cambiar esto segun la API
-    public void obtenerPinturaPorPosicion(final Integer posicion){
-        Call<PinturaContainer> retrofitListener = service.getArticulosPorTema("6cc9dd144ae6445886c4667f1d8332cf","hola","es");
-        retrofitListener.enqueue(new Callback<PinturaContainer>() {
-            @Override
-            public void onResponse(Call<PinturaContainer> call, Response<PinturaContainer> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<PinturaContainer> call, Throwable t) {
-
             }
         });
     }

@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
 
-        <activity android:name=".view.MainActivity" android:label="Cacho Castaña">
+        <activity android:name=".view.activity.MainActivity" android:label="Entregable 2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.LoginActivity"></activity>
+        <activity android:name=".view.activity.LoginActivity"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>

@@ -5,10 +5,6 @@ import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by DH on 11/6/2018.
- */
-
 public class DAOArchivos {
 
 

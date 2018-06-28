@@ -1,4 +1,4 @@
-package com.example.dh.entregableandroidguidosalcedo2.view;
+package com.example.dh.entregableandroidguidosalcedo2.view.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -23,12 +23,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final String EMAIL = "email";
     private LoginButton loginButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         // TODO - Facebook
         callbackManager = CallbackManager.Factory.create();
@@ -54,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
                 // App code
             }
         });
-
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();

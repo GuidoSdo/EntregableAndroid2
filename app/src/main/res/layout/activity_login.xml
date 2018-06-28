@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
-    tools:context="com.example.dh.entregableandroidguidosalcedo2.view.LoginActivity">
+    tools:context="com.example.dh.entregableandroidguidosalcedo2.view.activity.LoginActivity">
 
     <TextView
         android:layout_width="wrap_content"
