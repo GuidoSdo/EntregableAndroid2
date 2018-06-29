@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "415989586613",
+    "firebase_url": "https://entregableandroidguidosalcedo2.firebaseio.com",
+    "project_id": "entregableandroidguidosalcedo2",
+    "storage_bucket": "entregableandroidguidosalcedo2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415989586613:android:520bf422ea1598e3",
+        "android_client_info": {
+          "package_name": "com.example.dh.entregableandroidguidosalcedo2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415989586613-u68t3i59cmot0im3l2heomg0jfb1abd4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dh.entregableandroidguidosalcedo2",
+            "certificate_hash": "3aed8d376576a1bca7ba82dcaa512adc49c2699d"
+          }
+        },
+        {
+          "client_id": "415989586613-29apo19eda0qn9k20jugkcjig3hskat4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXKE6GpNvjYjTAdOOmsG-gNaNd08Wcooo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415989586613-29apo19eda0qn9k20jugkcjig3hskat4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

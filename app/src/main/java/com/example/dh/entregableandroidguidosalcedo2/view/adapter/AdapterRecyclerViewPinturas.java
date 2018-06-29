@@ -14,9 +14,13 @@ import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 
 import java.util.List;
 
+/*
 public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter{
+*/
 
-    private List<Pintura> listaDePinturas;
+public class AdapterRecyclerViewPinturas {
+
+   /* private List<Pintura> listaDePinturas;
     Context context;
 
     private ComunicacionAdapterRecycler comunicacionAdapterRecycler;
@@ -87,6 +91,6 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter{
 
     public interface ComunicacionAdapterRecycler {
         public void seleccionaronLaCelda(Integer posicion,String urlNoticia);
-    }
+    }*/
 
 }
