@@ -18,7 +18,7 @@ public class ControllerPintura {
                 }
             };
 
-            List<Pintura> pinturas = null;
+            List<Pintura> pinturas;
             if(hayInternet()){
                 DAORetrofit daoRetrofit = new DAORetrofit();
                 daoRetrofit.obtenerPinturasDeInternet(escuchadorDelControlador);
