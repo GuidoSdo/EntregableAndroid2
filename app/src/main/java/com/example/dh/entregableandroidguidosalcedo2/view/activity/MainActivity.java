@@ -15,6 +15,7 @@ import com.example.dh.entregableandroidguidosalcedo2.R;
 import com.example.dh.entregableandroidguidosalcedo2.controller.ControllerPintura;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 import com.example.dh.entregableandroidguidosalcedo2.utils.ResultListener;
+import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentFeed;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.HomeFragment;
 
 import java.util.List;
@@ -35,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         // Fragments
         fragmentManager = getSupportFragmentManager();
         HomeFragment homeFragment = new HomeFragment();
-        cargarFragment(homeFragment);
+        FragmentFeed fragmentFeed = new FragmentFeed();
+        cargarFragment(fragmentFeed);
         cargarPinturas();
 
 
@@ -80,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         controllerPintura.obtenerPintura(new ResultListener<List<Pintura>>() {
             @Override
             public void finish(List<Pintura> pinturas) {
-                Toast.makeText(MainActivity.this, pinturas.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "cargo las pinturas", Toast.LENGTH_LONG).show();
 
             }
         });

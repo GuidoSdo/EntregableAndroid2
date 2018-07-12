@@ -1,6 +1,5 @@
 package com.example.dh.entregableandroidguidosalcedo2.view.adapter;
 
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,25 +8,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.dh.entregableandroidguidosalcedo2.R;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 
 import java.util.List;
 
-/*
-public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter{
-*/
+public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
 
-public class AdapterRecyclerViewPinturas {
+    private List<Pintura> listaDePinturas;
+    private Context context;
 
-   /* private List<Pintura> listaDePinturas;
-    Context context;
+    private ComunicacionAdapterRecycler comunicacionAdapterRecyclerView;
 
-    private ComunicacionAdapterRecycler comunicacionAdapterRecycler;
-
-    public AdapterRecyclerViewPinturas(List<Pintura> listaDePinturas, ComunicacionAdapterRecycler comunicacionAdapterRecycler) {
+    // Constructor
+    public AdapterRecyclerViewPinturas(List<Pintura> listaDePinturas,
+                                       ComunicacionAdapterRecycler comunicacionAdapterRecycler) {
         this.listaDePinturas = listaDePinturas;
-        this.comunicacionAdapterRecycler = comunicacionAdapterRecycler; //AGREGO AL CONSTRUCTOR LA INTERFACE
+        this.comunicacionAdapterRecyclerView = comunicacionAdapterRecycler; //AGREGO AL CONSTRUCTOR LA INTERFACE
     }
 
     @Override
@@ -38,22 +36,22 @@ public class AdapterRecyclerViewPinturas {
         //Obtengo el inflator
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         //inflamos la celda
-        View celda = layoutInflater.inflate(R.layout.celda_pinturas,parent,false);
+        View celda = layoutInflater.inflate(R.layout.celda_pintura_feed, parent, false);
         //Al VH le asignamos la celda
         PinturaViewHolder pinturaViewHolder = new PinturaViewHolder(celda);
-
 
 
         return pinturaViewHolder;
     }
 
+    // View Holder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Pintura pintura = listaDePinturas.get(position);
         PinturaViewHolder pinturaViewHolder = (PinturaViewHolder) holder;
         //Pido dato de la lista de noticias. Le pido el titulo.
-        pinturaViewHolder.asignarDatos(pintura.getTitle(),pintura.getUrlToImage());
+        pinturaViewHolder.asignarDatos(pintura.getName(), pintura.getImage());
     }
 
     @Override
@@ -61,36 +59,34 @@ public class AdapterRecyclerViewPinturas {
         return listaDePinturas.size();
     }
 
-    private class PinturaViewHolder extends RecyclerView.ViewHolder{
+    // View holder noticia
+    private class PinturaViewHolder extends RecyclerView.ViewHolder {
 
-        TextView textoTituloNoticia;
-        ImageView imageView;
+        TextView textViewTituloPintura;
+        ImageView imageViewPintura;
 
         public PinturaViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imgNoticia);
-            textoTituloNoticia = itemView.findViewById(R.id.textViewTituloNoticia);
+            imageViewPintura = itemView.findViewById(R.id.imageViewPintura);
+            textViewTituloPintura = itemView.findViewById(R.id.textViewTituloPintura);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Integer posicionSeleccionada = getAdapterPosition();
 
-                    String urlDeNoticiaSeleccionada = listaDeNoticias.get(posicionSeleccionada).getUrl();
-                    comunicacionAdapterRecycler.seleccionaronLaCelda(posicionSeleccionada,urlDeNoticiaSeleccionada);
+                    Integer idDePinturaSeleccionada = listaDePinturas.get(posicionSeleccionada).getArtistId();
+                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(posicionSeleccionada, idDePinturaSeleccionada);
                 }
             });
-
         }
 
-        public void asignarDatos(String texto, String urlToImage){
-            textoTituloNoticia.setText(texto);
-            Glide.with(context).load(urlToImage).into(imageView);
-
+        public void asignarDatos(String texto, String urlToImage) {
+            textViewTituloPintura.setText(texto);
+            Glide.with(context).load(urlToImage).into(imageViewPintura);
         }
     }
 
     public interface ComunicacionAdapterRecycler {
-        public void seleccionaronLaCelda(Integer posicion,String urlNoticia);
-    }*/
-
+        public void seleccionaronLaCelda(Integer posicion, Integer idDePinturaSeleccionada);
+    }
 }
