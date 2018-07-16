@@ -1,7 +1,7 @@
 package com.example.dh.entregableandroidguidosalcedo2.controller;
 
 import com.example.dh.entregableandroidguidosalcedo2.model.dao.DAOArchivos;
-import com.example.dh.entregableandroidguidosalcedo2.model.dao.DAORetrofit;
+import com.example.dh.entregableandroidguidosalcedo2.model.dao.DAORetrofitPinturas;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 import com.example.dh.entregableandroidguidosalcedo2.utils.ResultListener;
 
@@ -20,8 +20,8 @@ public class ControllerPintura {
 
             List<Pintura> pinturas;
             if(hayInternet()){
-                DAORetrofit daoRetrofit = new DAORetrofit();
-                daoRetrofit.obtenerPinturasDeInternet(escuchadorDelControlador);
+                DAORetrofitPinturas daoRetrofitPinturas = new DAORetrofitPinturas();
+                daoRetrofitPinturas.obtenerPinturasDeInternet(escuchadorDelControlador);
             }else{
                 DAOArchivos daoArchivos = new DAOArchivos();
                 pinturas = daoArchivos.obtenerProductosDeArchivo();

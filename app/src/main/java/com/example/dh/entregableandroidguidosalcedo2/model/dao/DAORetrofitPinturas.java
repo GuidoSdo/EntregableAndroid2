@@ -14,14 +14,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DAORetrofit {
+public class DAORetrofitPinturas {
 
 
     private String baseURL;
     private Retrofit retrofit;
     private Service service;
 
-    public DAORetrofit() {
+    public DAORetrofitPinturas() {
 
         baseURL = "https://api.myjson.com/bins/x858r/";
         retrofit = new Retrofit.Builder()

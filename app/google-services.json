@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "415989586613-t5kb1ua4ovj7rel01mgs87smfpa072h4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dh.entregableandroidguidosalcedo2",
+            "certificate_hash": "69bafb92c0428d4ef83b73ff863369bcf791fadd"
+          }
+        },
+        {
           "client_id": "415989586613-29apo19eda0qn9k20jugkcjig3hskat4.apps.googleusercontent.com",
           "client_type": 3
         }

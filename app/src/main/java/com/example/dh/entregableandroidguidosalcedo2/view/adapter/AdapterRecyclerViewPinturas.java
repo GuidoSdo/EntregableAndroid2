@@ -7,10 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.dh.entregableandroidguidosalcedo2.R;
+import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Artista;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -31,26 +38,19 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        //Obtengo el context
         context = parent.getContext();
-        //Obtengo el inflator
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        //inflamos la celda
         View celda = layoutInflater.inflate(R.layout.celda_pintura_feed, parent, false);
-        //Al VH le asignamos la celda
         PinturaViewHolder pinturaViewHolder = new PinturaViewHolder(celda);
-
 
         return pinturaViewHolder;
     }
 
-    // View Holder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
         Pintura pintura = listaDePinturas.get(position);
         PinturaViewHolder pinturaViewHolder = (PinturaViewHolder) holder;
-        //Pido dato de la lista de noticias. Le pido el titulo.
         pinturaViewHolder.asignarDatos(pintura.getName(), pintura.getImage());
     }
 
@@ -59,7 +59,6 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
         return listaDePinturas.size();
     }
 
-    // View holder noticia
     private class PinturaViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewTituloPintura;
@@ -75,18 +74,22 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
                     Integer posicionSeleccionada = getAdapterPosition();
 
                     Integer idDePinturaSeleccionada = listaDePinturas.get(posicionSeleccionada).getArtistId();
-                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(posicionSeleccionada, idDePinturaSeleccionada);
+                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(posicionSeleccionada,idDePinturaSeleccionada);
                 }
             });
         }
 
         public void asignarDatos(String texto, String urlToImage) {
             textViewTituloPintura.setText(texto);
-            Glide.with(context).load(urlToImage).into(imageViewPintura);
+           //Glide.with(context).load(urlToImage).into(imageViewPintura);
         }
     }
 
     public interface ComunicacionAdapterRecycler {
-        public void seleccionaronLaCelda(Integer posicion, Integer idDePinturaSeleccionada);
+        public void seleccionaronLaCelda(Integer posicion,Integer idDePinturaSeleccionada);
     }
+
+
+
+
 }

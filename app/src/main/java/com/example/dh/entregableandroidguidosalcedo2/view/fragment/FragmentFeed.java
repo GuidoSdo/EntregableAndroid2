@@ -20,13 +20,18 @@ import java.util.List;
 
 public class FragmentFeed extends Fragment implements AdapterRecyclerViewPinturas.ComunicacionAdapterRecycler {
     public static List<Pintura> listaDePinturas;
-    private TapNoticia tapNoticia;
+    private comunicacionFragment comunicacionFragment;
     private RecyclerView recyclerViewFeed;
 
     public FragmentFeed() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.comunicacionFragment = (comunicacionFragment)context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,11 +69,11 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
 
     @Override
     public void seleccionaronLaCelda(Integer posicion, Integer idDePinturaSeleccionada) {
-
+        comunicacionFragment.clickearonLaPintura(posicion, idDePinturaSeleccionada);
     }
 
-    public interface TapNoticia{
-        void clickearonLaNoticia(Integer posicion, String urlNoticia);
+    public interface comunicacionFragment {
+         void clickearonLaPintura(Integer posicion,Integer idDePinturaSeleccionada);
     }
 
     }
