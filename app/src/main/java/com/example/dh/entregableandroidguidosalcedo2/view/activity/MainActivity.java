@@ -9,25 +9,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.dh.entregableandroidguidosalcedo2.R;
-import com.example.dh.entregableandroidguidosalcedo2.controller.ControllerPintura;
-import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Artista;
-import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
-import com.example.dh.entregableandroidguidosalcedo2.utils.ResultListener;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentFeed;
-import com.example.dh.entregableandroidguidosalcedo2.view.fragment.HomeFragment;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements FragmentFeed.comunicacionFragment {
+public class MainActivity extends AppCompatActivity implements FragmentFeed.ComunicacionFragment {
 
     FragmentManager fragmentManager;
 
@@ -42,14 +29,9 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.comu
 
         // Fragments
         fragmentManager = getSupportFragmentManager();
-        HomeFragment homeFragment = new HomeFragment();
+//        HomeFragment homeFragment = new HomeFragment();
         FragmentFeed fragmentFeed = new FragmentFeed();
         cargarFragment(fragmentFeed);
-        cargarPinturas();
-
-
-
-
     }
 
     @Override
@@ -81,55 +63,18 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.comu
     }
 
     private void cargarFragment(Fragment fragmentACargar) {
-
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutContenedor, fragmentACargar);
         fragmentTransaction.addToBackStack(null).commit();
-    }
-
-    public void cargarPinturas() {
-
-        ControllerPintura controllerPintura = new ControllerPintura();
-        controllerPintura.obtenerPintura(new ResultListener<List<Pintura>>() {
-            @Override
-            public void finish(List<Pintura> pinturas) {
-               // Toast.makeText(MainActivity.this, "cargo las pinturas", Toast.LENGTH_LONG).show();
-
-            }
-        });
-
     }
 
     public void clickearonLaPintura(Integer posicion,Integer idDePinturaSeleccionada) {
 
         Intent unIntent = new Intent(this, DetalleActivity.class);
         Bundle unBundle = new Bundle();
-        leerSimple();
-        unBundle.putInt("pos",posicion);
         unBundle.putInt("idPintura",idDePinturaSeleccionada);
+        unBundle.putInt("posicion",posicion);
         unIntent.putExtras(unBundle);
         startActivity(unIntent);
-
-    }
-
-    public void leerSimple(){
-        DatabaseReference mDatabase;
-
-        //Referencia al JSON del Firebase de la BD del proyecto
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        mDatabase = firebaseDatabase.getReference();
-
-        ValueEventListener valueEventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Artista artistaLeido = dataSnapshot.getValue(Artista.class);
-                Toast.makeText(MainActivity.this, artistaLeido.toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
     }
 }

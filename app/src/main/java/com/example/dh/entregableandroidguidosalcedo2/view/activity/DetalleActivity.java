@@ -10,6 +10,8 @@ import android.os.Bundle;
 import com.example.dh.entregableandroidguidosalcedo2.R;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentDetalle;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentFeed;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class DetalleActivity extends AppCompatActivity {
 
@@ -26,10 +28,17 @@ public class DetalleActivity extends AppCompatActivity {
         Intent unIntent = getIntent();
         final Bundle unBundle = unIntent.getExtras();
 
-     /*   FragmentDetalle fragmentDetalle = new FragmentDetalle();
+        Integer artistId = unBundle.getInt("idPintura");
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("artists/artistId");
+
+        FragmentDetalle fragmentDetalle = new FragmentDetalle();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayoutContenedor, fragmentDetalle);
+        fragmentDetalle.setArguments(unBundle);
+
         fragmentTransaction.addToBackStack(null).commit();
-*/
+
     }
 }

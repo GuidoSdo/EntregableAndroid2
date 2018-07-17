@@ -52,10 +52,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                Toast.makeText(LoginActivity.this, "funciona el login FACEBOOK", Toast.LENGTH_SHORT).show();
 
                 //FireBase - Pasar Token de facebook
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Toast.makeText(LoginActivity.this, "funciona el login", Toast.LENGTH_SHORT).show();
             }
 
             @Override

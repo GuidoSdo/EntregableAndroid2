@@ -20,7 +20,7 @@ import java.util.List;
 
 public class FragmentFeed extends Fragment implements AdapterRecyclerViewPinturas.ComunicacionAdapterRecycler {
     public static List<Pintura> listaDePinturas;
-    private comunicacionFragment comunicacionFragment;
+    private ComunicacionFragment comunicacionFragment;
     private RecyclerView recyclerViewFeed;
 
     public FragmentFeed() {
@@ -30,7 +30,7 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.comunicacionFragment = (comunicacionFragment)context;
+        this.comunicacionFragment = (ComunicacionFragment)context;
     }
 
     @Override
@@ -43,10 +43,11 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
         //BUSCO EL contenedor del recycler view
         recyclerViewFeed = view.findViewById(R.id.RWFeed);
         //cargo las pinturas y las coloco en el recycler
-        cargarPintura(getContext());
+        cargarPintura();
         return view;
     }
-    public void cargarPintura(final Context unContext){
+
+    public void cargarPintura(){
         ControllerPintura noticiaController = new ControllerPintura();
         noticiaController.obtenerPintura(new ResultListener<List<Pintura>>() {
             @Override
@@ -72,10 +73,10 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
         comunicacionFragment.clickearonLaPintura(posicion, idDePinturaSeleccionada);
     }
 
-    public interface comunicacionFragment {
+    public interface ComunicacionFragment {
          void clickearonLaPintura(Integer posicion,Integer idDePinturaSeleccionada);
     }
 
-    }
+}
 
 

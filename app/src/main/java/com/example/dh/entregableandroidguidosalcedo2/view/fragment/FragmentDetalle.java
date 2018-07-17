@@ -37,7 +37,7 @@ public class FragmentDetalle extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detalle, container, false);
         final Bundle unBundle = getArguments();
-        Pintura pinturaParaMostrar= FragmentFeed.listaDePinturas.get(unBundle.getInt("posicion"));
+        Pintura pinturaParaMostrar= FragmentFeed.listaDePinturas.get(unBundle.getInt("idPintura"));
 
 
         imageViewPintura = view.findViewById(R.id.imageViewPintura);
