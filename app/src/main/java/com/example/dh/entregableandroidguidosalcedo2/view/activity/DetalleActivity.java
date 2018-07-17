@@ -31,14 +31,13 @@ public class DetalleActivity extends AppCompatActivity {
         Integer artistId = unBundle.getInt("idPintura");
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("artists/artistId");
+        DatabaseReference databaseReference = firebaseDatabase.getReference("artistId");
 
         FragmentDetalle fragmentDetalle = new FragmentDetalle();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutContenedor, fragmentDetalle);
+        fragmentTransaction.replace(R.id.contenedorDetalleActivity, fragmentDetalle);
         fragmentDetalle.setArguments(unBundle);
 
-        fragmentTransaction.addToBackStack(null).commit();
 
     }
 }
