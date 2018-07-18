@@ -12,16 +12,28 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.dh.entregableandroidguidosalcedo2.R;
+import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Artista;
+import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentDetalle;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentFeed;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements FragmentFeed.ComunicacionFragment {
 
     FragmentManager fragmentManager;
 
+    DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+// ...
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
 
         // App Bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -33,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.Comu
         FragmentFeed fragmentFeed = new FragmentFeed();
         cargarFragment(fragmentFeed);
     }
+
+    private void nuevoArtista(String artistId, String name, String nationality, String influenced_by) {
+        Artista artista = new Artista(name, nationality,influenced_by);
+
+        mDatabase.child("artists").child(artistId).setValue(artista);
+        Toast.makeText(MainActivity.this, artista.toString(), Toast.LENGTH_SHORT).show();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.Comu
 
             case R.id.buscador:
                 Toast.makeText(this, "Buscador", Toast.LENGTH_SHORT).show();
+
                 break;
 
             case R.id.iniciarSesion:
@@ -64,17 +85,25 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.Comu
 
     private void cargarFragment(Fragment fragmentACargar) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayoutContenedor, fragmentACargar);
+        fragmentTransaction.replace(R.id.frameLayoutContenedorMainActivity, fragmentACargar);
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-    public void clickearonLaPintura(Integer posicion,Integer idDePinturaSeleccionada) {
+    public void clickearonLaPintura(String idDePinturaSeleccionada,Integer pos) {
 
-        Intent unIntent = new Intent(this, DetalleActivity.class);
-        Bundle unBundle = new Bundle();
-        unBundle.putInt("idPintura",idDePinturaSeleccionada);
-        unBundle.putInt("posicion",posicion);
+        /*Intent unIntent = new Intent(this, DetalleActivity.class);
+
+
         unIntent.putExtras(unBundle);
-        startActivity(unIntent);
+        startActivity(unIntent);*/
+        FragmentDetalle fragmentDetalle = new FragmentDetalle();
+        cargarFragment(fragmentDetalle);
+        Bundle unBundle = new Bundle();
+        unBundle.putString("idPintura",idDePinturaSeleccionada);
+        fragmentDetalle.setArguments(unBundle);
+
     }
+
+
+
 }

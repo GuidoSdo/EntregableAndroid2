@@ -22,21 +22,17 @@ public class DetalleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle);
-
-        fragmentManager = getSupportFragmentManager();
+        FragmentDetalle fragmentDetalle = new FragmentDetalle();
 
         Intent unIntent = getIntent();
-        final Bundle unBundle = unIntent.getExtras();
+        Bundle unBundle = unIntent.getExtras();
+        fragmentDetalle.setArguments(unBundle);
 
-        Integer artistId = unBundle.getInt("idPintura");
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference("artistId");
-
-        FragmentDetalle fragmentDetalle = new FragmentDetalle();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contenedorDetalleActivity, fragmentDetalle);
-        fragmentDetalle.setArguments(unBundle);
+
 
 
     }

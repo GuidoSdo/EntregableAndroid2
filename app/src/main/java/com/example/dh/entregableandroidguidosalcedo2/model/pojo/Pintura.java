@@ -4,10 +4,10 @@ public class Pintura {
 
     private String name;
     private String image;
-    private Integer artistId;
+    private String artistId;
 
 
-    public Pintura(String name, String image, Integer artistId) {
+    public Pintura(String name, String image, String artistId) {
         this.name = name;
         this.image = image;
         this.artistId = artistId;
@@ -21,7 +21,7 @@ public class Pintura {
         return name;
     }
 
-    public Integer getArtistId() {
+    public String getArtistId() {
         return artistId;
     }
 

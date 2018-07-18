@@ -69,12 +69,12 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
     }
 
     @Override
-    public void seleccionaronLaCelda(Integer posicion, Integer idDePinturaSeleccionada) {
-        comunicacionFragment.clickearonLaPintura(posicion, idDePinturaSeleccionada);
+    public void seleccionaronLaCelda(String idDePinturaSeleccionada,Integer pos) {
+        comunicacionFragment.clickearonLaPintura(idDePinturaSeleccionada,pos);
     }
 
     public interface ComunicacionFragment {
-         void clickearonLaPintura(Integer posicion,Integer idDePinturaSeleccionada);
+         void clickearonLaPintura(String idDePinturaSeleccionada,Integer pos);
     }
 
 }

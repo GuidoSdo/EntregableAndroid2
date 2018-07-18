@@ -73,8 +73,8 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     Integer posicionSeleccionada = getAdapterPosition();
 
-                    Integer idDePinturaSeleccionada = listaDePinturas.get(posicionSeleccionada).getArtistId();
-                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(posicionSeleccionada,idDePinturaSeleccionada);
+                    String idDePinturaSeleccionada = listaDePinturas.get(posicionSeleccionada).getArtistId();
+                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(idDePinturaSeleccionada,posicionSeleccionada);
                 }
             });
         }
@@ -86,7 +86,7 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
     }
 
     public interface ComunicacionAdapterRecycler {
-        public void seleccionaronLaCelda(Integer posicion,Integer idDePinturaSeleccionada);
+        public void seleccionaronLaCelda(String idDePinturaSeleccionada,Integer pos);
     }
 
 

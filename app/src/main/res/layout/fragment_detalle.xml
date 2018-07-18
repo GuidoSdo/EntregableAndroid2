@@ -6,13 +6,9 @@
     tools:context="com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentDetalle">
 
     <!-- TODO: Update blank fragment layout -->
-    <ImageView
-        android:id="@+id/imageViewPintura"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:src="@color/colorPrimary" />
 
     <LinearLayout
+
         android:textAlignment="center"
         android:layout_margin="30dp"
         android:gravity="center_horizontal"

@@ -3,19 +3,29 @@ package com.example.dh.entregableandroidguidosalcedo2.model.pojo;
 
 
 public class Artista {
-    private Integer artistId;
+    private String artistId;
     private String name;
     private String nationality;
     private String Influenced_by;
 
-    public Artista(Integer artistId, String name, String nationality, String influenced_by) {
+    public Artista(){
+
+    }
+
+    public Artista(String artistId, String name, String nationality, String influenced_by) {
         this.artistId = artistId;
         this.name = name;
         this.nationality = nationality;
         this.Influenced_by = influenced_by;
     }
+    public Artista(String name, String nationality, String influenced_by){
+        this.name = name;
+        this.nationality = nationality;
+        this.Influenced_by = influenced_by;
 
-    public Integer getArtistId() {
+    }
+
+    public String getArtistId() {
         return artistId;
     }
 
