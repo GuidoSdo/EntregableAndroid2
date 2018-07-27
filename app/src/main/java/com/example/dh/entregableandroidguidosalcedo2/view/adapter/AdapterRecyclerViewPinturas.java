@@ -80,24 +80,23 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
            //Glide.with(context).load(urlToImage).into(imageViewPintura);
         }
     }
+
     public void setList(List<Pintura> listaDePinturasAgregar) {
         this.listaDePinturasDelRecycler = listaDePinturasAgregar;
         notifyDataSetChanged();
     }
+
+    // TODO falta cargar imagen firebase
     public void descargarImageFireBase(ImageView imageView, Pintura pintura) {
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         StorageReference storageReference = firebaseStorage.getReference();
         StorageReference imageRef = storageReference.child(pintura.getImage());
-        //Glide.with(context).using(new FirebaseImageLoader()).load(imageRef).into(imageView);
+
 
     }
-
 
     public interface ComunicacionAdapterRecycler {
         public void seleccionaronLaCelda(Integer pos);
     }
-
-
-
 
 }

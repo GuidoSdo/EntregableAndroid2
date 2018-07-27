@@ -28,12 +28,9 @@ public class DetalleActivity extends AppCompatActivity {
         Bundle unBundle = unIntent.getExtras();
         fragmentDetalle.setArguments(unBundle);
 
-
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.contenedorDetalleActivity, fragmentDetalle);
-
-
 
     }
 }

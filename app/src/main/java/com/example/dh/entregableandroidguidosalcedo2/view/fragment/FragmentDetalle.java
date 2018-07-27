@@ -34,17 +34,17 @@ public class FragmentDetalle extends Fragment {
     private TextView textNacionalidad;
     private TextView textViewIdArtist;
     private TextView textInfluencias;
+
     private Integer posPintura;
     private ConexionFragmentDetalle conexionFragmentDetalle;
-    String idArtista;
-    DatabaseReference mDatabase;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference referenceDataBase;
+    private String idArtista;
+    private DatabaseReference mDatabase;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference referenceDataBase;
 
     public FragmentDetalle() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,17 +97,16 @@ public class FragmentDetalle extends Fragment {
         controllerPintura.obtenerPintura(escuchadorVista);
     }
 
-
-    public void cargarArtista(String idArtista){
+    public void cargarArtista(final String idArtista){
         firebaseDatabase = FirebaseDatabase.getInstance();
         mDatabase = firebaseDatabase.getReference();
-        referenceDataBase = mDatabase.child("artists").child(idArtista);
+        referenceDataBase = mDatabase.child("artists");
 
         ValueEventListener valueEventListener;
         valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Artista artistaLeido = dataSnapshot.getValue(Artista.class);
+                Artista artistaLeido = buscarJSonFirebaseArt(dataSnapshot,idArtista);
 
                 textNombreArtista.setText(artistaLeido.getName());
                 textNacionalidad.setText(artistaLeido.getNationality());
@@ -125,6 +124,18 @@ public class FragmentDetalle extends Fragment {
 
         referenceDataBase.addListenerForSingleValueEvent(valueEventListener);
 
+    }
+
+    public Artista buscarJSonFirebaseArt(DataSnapshot dataSnapshot, String idDeArtistaABuscar) {
+        Artista artistaEncontrado = null;
+        for (DataSnapshot dataSnapshotDelFor : dataSnapshot.getChildren()) {
+            Artista artistaDelFor = dataSnapshotDelFor.getValue(Artista.class);
+            if (artistaDelFor.getArtistId().equals(idDeArtistaABuscar)) {
+                artistaEncontrado = artistaDelFor;
+                break;
+            }
+        }
+        return artistaEncontrado;
     }
 
     public interface ConexionFragmentDetalle {

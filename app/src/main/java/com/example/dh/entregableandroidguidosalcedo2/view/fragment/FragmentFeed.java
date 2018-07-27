@@ -64,9 +64,6 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
         controllerPintura.obtenerPintura(escuchadorVista);
     }
 
-
-
-
     @Override
     public void seleccionaronLaCelda(Integer pos) {
         comunicacionFragment.clickearonLaPintura(pos);

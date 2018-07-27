@@ -43,13 +43,6 @@ public class MainActivity extends AppCompatActivity implements
         cargarFragment(fragmentFeed);
     }
 
-  /*  private void nuevoArtista(String artistId, String name, String nationality, String influenced_by) {
-        Artista artista = new Artista(name, nationality,influenced_by);
-
-        mDatabase.child("artists").child(artistId).setValue(artista);
-        Toast.makeText(MainActivity.this, artista.toString(), Toast.LENGTH_SHORT).show();
-    }*/
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
