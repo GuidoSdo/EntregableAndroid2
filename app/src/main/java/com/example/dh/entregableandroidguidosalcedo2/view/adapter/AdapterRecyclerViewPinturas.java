@@ -1,42 +1,39 @@
 package com.example.dh.entregableandroidguidosalcedo2.view.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.dh.entregableandroidguidosalcedo2.R;
-import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Artista;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 
 import java.util.List;
 
 public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
 
-    private List<Pintura> listaDePinturas;
+    private List<Pintura> listaDePinturasDelRecycler;
     private Context context;
-
     private ComunicacionAdapterRecycler comunicacionAdapterRecyclerView;
 
+
     // Constructor
-    public AdapterRecyclerViewPinturas(List<Pintura> listaDePinturas,
+    public AdapterRecyclerViewPinturas(List<Pintura> listaDePinturasDelRecycler,
                                        ComunicacionAdapterRecycler comunicacionAdapterRecycler) {
-        this.listaDePinturas = listaDePinturas;
+        this.listaDePinturasDelRecycler = listaDePinturasDelRecycler;
         this.comunicacionAdapterRecyclerView = comunicacionAdapterRecycler; //AGREGO AL CONSTRUCTOR LA INTERFACE
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         context = parent.getContext();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -49,14 +46,14 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        Pintura pintura = listaDePinturas.get(position);
+        Pintura pintura = listaDePinturasDelRecycler.get(position);
         PinturaViewHolder pinturaViewHolder = (PinturaViewHolder) holder;
-        pinturaViewHolder.asignarDatos(pintura.getName(), pintura.getImage());
+        pinturaViewHolder.asignarDatosPorCelda(pintura);
     }
 
     @Override
     public int getItemCount() {
-        return listaDePinturas.size();
+        return listaDePinturasDelRecycler.size();
     }
 
     private class PinturaViewHolder extends RecyclerView.ViewHolder {
@@ -72,21 +69,32 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     Integer posicionSeleccionada = getAdapterPosition();
-
-                    String idDePinturaSeleccionada = listaDePinturas.get(posicionSeleccionada).getArtistId();
-                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(idDePinturaSeleccionada,posicionSeleccionada);
+                    comunicacionAdapterRecyclerView.seleccionaronLaCelda(posicionSeleccionada);
                 }
             });
         }
 
-        public void asignarDatos(String texto, String urlToImage) {
-            textViewTituloPintura.setText(texto);
+        public void asignarDatosPorCelda(Pintura pintura) {
+            textViewTituloPintura.setText(pintura.getName().toString());
+           // descargarImageFireBase(imageViewPintura, pintura);
            //Glide.with(context).load(urlToImage).into(imageViewPintura);
         }
     }
+    public void setList(List<Pintura> listaDePinturasAgregar) {
+        this.listaDePinturasDelRecycler = listaDePinturasAgregar;
+        notifyDataSetChanged();
+    }
+    public void descargarImageFireBase(ImageView imageView, Pintura pintura) {
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference storageReference = firebaseStorage.getReference();
+        StorageReference imageRef = storageReference.child(pintura.getImage());
+        //Glide.with(context).using(new FirebaseImageLoader()).load(imageRef).into(imageView);
+
+    }
+
 
     public interface ComunicacionAdapterRecycler {
-        public void seleccionaronLaCelda(String idDePinturaSeleccionada,Integer pos);
+        public void seleccionaronLaCelda(Integer pos);
     }
 
 

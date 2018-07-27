@@ -16,13 +16,14 @@ import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 import com.example.dh.entregableandroidguidosalcedo2.utils.ResultListener;
 import com.example.dh.entregableandroidguidosalcedo2.view.adapter.AdapterRecyclerViewPinturas;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentFeed extends Fragment implements AdapterRecyclerViewPinturas.ComunicacionAdapterRecycler {
-    public static List<Pintura> listaDePinturas;
     private ComunicacionFragment comunicacionFragment;
     private RecyclerView recyclerViewFeed;
-
+    private AdapterRecyclerViewPinturas adapterRecyclerViewPinturas;
+    public static List<Pintura> listaDePinturasDelAdapter;
     public FragmentFeed() {
         // Required empty public constructor
     }
@@ -36,45 +37,44 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         View view =  inflater.inflate(R.layout.fragment_feed, container, false);
 
-        //BUSCO EL contenedor del recycler view
         recyclerViewFeed = view.findViewById(R.id.RWFeed);
-        //cargo las pinturas y las coloco en el recycler
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+        recyclerViewFeed.setLayoutManager(layoutManager);
+
+        listaDePinturasDelAdapter = new ArrayList<>();
+        adapterRecyclerViewPinturas = new AdapterRecyclerViewPinturas(listaDePinturasDelAdapter,this);
+        recyclerViewFeed.setAdapter(adapterRecyclerViewPinturas);
         cargarPintura();
+
         return view;
     }
 
     public void cargarPintura(){
-        ControllerPintura noticiaController = new ControllerPintura();
-        noticiaController.obtenerPintura(new ResultListener<List<Pintura>>() {
+
+        ResultListener<List<Pintura>> escuchadorVista = new ResultListener<List<Pintura>>() {
             @Override
             public void finish(List<Pintura> resultado) {
-
-                //Toast.makeText(getContext(), "Se cargo la info de internet", Toast.LENGTH_SHORT).show();
-
-                AdapterRecyclerViewPinturas adapterRecyclerViewPinturas = new AdapterRecyclerViewPinturas(resultado,FragmentFeed.this);
-                recyclerViewFeed.setAdapter(adapterRecyclerViewPinturas);
-
-                //CREAMOS Y SETEAMOS layoutManager
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-                recyclerViewFeed.setLayoutManager(layoutManager);
-
-                listaDePinturas = resultado;
-
+                adapterRecyclerViewPinturas.setList(resultado);
             }
-        });
+        };
+        ControllerPintura controllerPintura = new ControllerPintura(getContext());
+        controllerPintura.obtenerPintura(escuchadorVista);
     }
 
+
+
+
     @Override
-    public void seleccionaronLaCelda(String idDePinturaSeleccionada,Integer pos) {
-        comunicacionFragment.clickearonLaPintura(idDePinturaSeleccionada,pos);
+    public void seleccionaronLaCelda(Integer pos) {
+        comunicacionFragment.clickearonLaPintura(pos);
+
     }
 
     public interface ComunicacionFragment {
-         void clickearonLaPintura(String idDePinturaSeleccionada,Integer pos);
+         void clickearonLaPintura(Integer pos);
     }
 
 }

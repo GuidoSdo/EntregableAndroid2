@@ -13,27 +13,25 @@ import android.widget.Toast;
 
 import com.example.dh.entregableandroidguidosalcedo2.R;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Artista;
+import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentDetalle;
 import com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentFeed;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity implements FragmentFeed.ComunicacionFragment {
+public class MainActivity extends AppCompatActivity implements
+        FragmentFeed.ComunicacionFragment,FragmentDetalle.ConexionFragmentDetalle {
 
-    FragmentManager fragmentManager;
-
-    DatabaseReference mDatabase;
+    private FragmentManager fragmentManager;
+    private FragmentFeed fragmentFeed;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-// ...
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
 
         // App Bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -41,18 +39,16 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.Comu
 
         // Fragments
         fragmentManager = getSupportFragmentManager();
-//        HomeFragment homeFragment = new HomeFragment();
-        FragmentFeed fragmentFeed = new FragmentFeed();
+        fragmentFeed = new FragmentFeed();
         cargarFragment(fragmentFeed);
     }
 
-    private void nuevoArtista(String artistId, String name, String nationality, String influenced_by) {
+  /*  private void nuevoArtista(String artistId, String name, String nationality, String influenced_by) {
         Artista artista = new Artista(name, nationality,influenced_by);
 
         mDatabase.child("artists").child(artistId).setValue(artista);
         Toast.makeText(MainActivity.this, artista.toString(), Toast.LENGTH_SHORT).show();
-    }
-
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,21 +85,19 @@ public class MainActivity extends AppCompatActivity implements FragmentFeed.Comu
         fragmentTransaction.addToBackStack(null).commit();
     }
 
-    public void clickearonLaPintura(String idDePinturaSeleccionada,Integer pos) {
-
-        /*Intent unIntent = new Intent(this, DetalleActivity.class);
-
-
-        unIntent.putExtras(unBundle);
-        startActivity(unIntent);*/
+    @Override
+    public void clickearonLaPintura(Integer pos) {
         FragmentDetalle fragmentDetalle = new FragmentDetalle();
         cargarFragment(fragmentDetalle);
         Bundle unBundle = new Bundle();
-        unBundle.putString("idPintura",idDePinturaSeleccionada);
+        unBundle.putInt("posicion",pos);
         fragmentDetalle.setArguments(unBundle);
-
     }
 
-
-
+    @Override
+    public void clickearonDetalleFragment(Integer pos) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("posicion",pos);
+        fragmentFeed.setArguments(bundle);
+    }
 }

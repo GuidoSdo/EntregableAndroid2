@@ -18,12 +18,7 @@ public class Artista {
         this.nationality = nationality;
         this.Influenced_by = influenced_by;
     }
-    public Artista(String name, String nationality, String influenced_by){
-        this.name = name;
-        this.nationality = nationality;
-        this.Influenced_by = influenced_by;
 
-    }
 
     public String getArtistId() {
         return artistId;
