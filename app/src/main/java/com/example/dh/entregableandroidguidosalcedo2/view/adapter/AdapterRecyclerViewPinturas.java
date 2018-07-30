@@ -1,8 +1,12 @@
 package com.example.dh.entregableandroidguidosalcedo2.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +15,22 @@ import android.widget.TextView;
 
 import com.example.dh.entregableandroidguidosalcedo2.R;
 import com.example.dh.entregableandroidguidosalcedo2.model.pojo.Pintura;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 
+import java.io.File;
 import java.util.List;
 
 public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
 
+    private static final String TAG = "AdapterRecyclerViewPinturas";
     private List<Pintura> listaDePinturasDelRecycler;
     private Context context;
     private ComunicacionAdapterRecycler comunicacionAdapterRecyclerView;
-
 
     // Constructor
     public AdapterRecyclerViewPinturas(List<Pintura> listaDePinturasDelRecycler,
@@ -57,14 +65,13 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
     }
 
     private class PinturaViewHolder extends RecyclerView.ViewHolder {
-
+        ImageView imageViewPinturaFeedCelda;
         TextView textViewTituloPintura;
-        ImageView imageViewPintura;
 
         public PinturaViewHolder(View itemView) {
             super(itemView);
-            imageViewPintura = itemView.findViewById(R.id.imageViewPintura);
-            textViewTituloPintura = itemView.findViewById(R.id.textViewTituloPintura);
+            imageViewPinturaFeedCelda = itemView.findViewById(R.id.imageViewPinturaCelda);
+            textViewTituloPintura = itemView.findViewById(R.id.textViewTituloPinturaCelda);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,8 +83,8 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
 
         public void asignarDatosPorCelda(Pintura pintura) {
             textViewTituloPintura.setText(pintura.getName().toString());
-           // descargarImageFireBase(imageViewPintura, pintura);
-           //Glide.with(context).load(urlToImage).into(imageViewPintura);
+
+             cargarImagenPintura(pintura.getImage(), imageViewPinturaFeedCelda);
         }
     }
 
@@ -86,13 +93,34 @@ public class AdapterRecyclerViewPinturas extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
-    // TODO falta cargar imagen firebase
-    public void descargarImageFireBase(ImageView imageView, Pintura pintura) {
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference();
-        StorageReference imageRef = storageReference.child(pintura.getImage());
+    @SuppressLint("LongLogTag")
+    public void cargarImagenPintura(String imagenEnPng, final ImageView imageView){
+        // Referencia al storage de lo que quiero traer
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        File file = null;
+        try{
+            // Archivo temporal donde voy a cargar la imagen
+            file = file.createTempFile("images", "png");
+            final File finalFile = file;
+            storageReference.child(imagenEnPng).getFile(file)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Bitmap bitmap = BitmapFactory.decodeFile(finalFile.getAbsolutePath());
+                            imageView.setImageBitmap(bitmap);
 
-
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e(TAG,"fallo la descarga de la imagen");
+                    e.printStackTrace();
+                }
+            });
+        }catch(Exception e){
+            Log.e(TAG,"ocurrio un problema al bajar la imagen");
+            e.printStackTrace();
+        }
     }
 
     public interface ComunicacionAdapterRecycler {

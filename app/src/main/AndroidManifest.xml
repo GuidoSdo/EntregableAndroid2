@@ -50,7 +50,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.activity.AccountActivity" />
-        <activity android:name=".view.activity.DetalleActivity"></activity>
     </application>
 
 </manifest>

@@ -3,13 +3,13 @@ package com.example.dh.entregableandroidguidosalcedo2.model.pojo;
 
 
 public class Artista {
+
     private String artistId;
     private String name;
     private String nationality;
     private String Influenced_by;
 
     public Artista(){
-
     }
 
     public Artista(String artistId, String name, String nationality, String influenced_by) {

@@ -5,15 +5,14 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:gravity="center_horizontal"
-
     tools:context="com.example.dh.entregableandroidguidosalcedo2.view.fragment.FragmentDetalle">
 
     <!-- TODO: Update blank fragment layout -->
 
     <ImageView
-        android:id="@+id/imageViewPintura"
+        android:id="@+id/imageViewPinturaDetalle"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_marginBottom="20dp"
         />
         <TextView

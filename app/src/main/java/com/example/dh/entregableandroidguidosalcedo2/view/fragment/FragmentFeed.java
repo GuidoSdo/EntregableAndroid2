@@ -74,6 +74,8 @@ public class FragmentFeed extends Fragment implements AdapterRecyclerViewPintura
          void clickearonLaPintura(Integer pos);
     }
 
+
+
 }
 
 

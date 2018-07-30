@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
-            android:id="@+id/textViewTituloPintura"
+            android:id="@+id/textViewTituloPinturaCelda"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="TITULO DE PINTURA"
@@ -20,12 +20,16 @@
             android:layout_alignBottom="@+id/imgNoticia" />
 
         <ImageView
-            android:id="@+id/imageViewPintura"
+            android:id="@+id/imageViewPinturaCelda"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginTop="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/captura" />
+        <ImageView
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="10dp" />
 
     </LinearLayout>
 
